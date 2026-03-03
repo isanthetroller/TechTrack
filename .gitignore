@@ -1,0 +1,18 @@
+# Compiled class files
+target/
+
+# IDE files
+.idea/
+*.iml
+.vscode/
+*.class
+nbproject/private/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Maven
+*.jar
+*.war
+*.ear
