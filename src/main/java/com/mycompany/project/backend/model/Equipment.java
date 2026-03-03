@@ -75,6 +75,6 @@ public class Equipment extends Entity {
      */
     @Override
     public String getSummary() {
-        return String.format("[%s] Room: %s | %s | %s", getId(), room, specs, status.getDisplayName());
+        return "[" + getId() + "] Room: " + room + " | " + specs + " | " + status.getDisplayName();
     }
 }

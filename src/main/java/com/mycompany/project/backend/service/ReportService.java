@@ -7,34 +7,40 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Service handling all issue report business logic and data operations.
- * Demonstrates POLYMORPHISM (implements IEntityService&lt;IssueReport&gt;)
- * and ENCAPSULATION (private list, business logic methods).
+ * Service that manages all issue report data and business logic.
+ * Demonstrates ENCAPSULATION — the report list is private and
+ * business logic (like resolving reports) is handled here, not in the UI.
  */
-public class ReportService implements IEntityService<IssueReport> {
-    private final List<IssueReport> reports = new ArrayList<>();
+public class ReportService {
+    private List<IssueReport> reports = new ArrayList<>();
 
-    @Override
+    // Returns the full list of reports
     public List<IssueReport> getAll() {
-        return new ArrayList<>(reports); // Defensive copy
+        return reports;
     }
 
-    @Override
+    // Adds a new report
     public void add(IssueReport report) {
-        if (report == null) {
-            throw new IllegalArgumentException("Report cannot be null.");
+        if (report != null) {
+            reports.add(report);
         }
-        reports.add(report);
     }
 
-    @Override
+    // Removes a report by its ID
     public boolean removeById(String id) {
-        return reports.removeIf(r -> r.getId().equals(id));
+        for (int i = 0; i < reports.size(); i++) {
+            if (reports.get(i).getId().equals(id)) {
+                reports.remove(i);
+                return true;
+            }
+        }
+        return false;
     }
 
-    @Override
+    // Finds a report by its ID
     public IssueReport findById(String id) {
-        for (IssueReport r : reports) {
+        for (int i = 0; i < reports.size(); i++) {
+            IssueReport r = reports.get(i);
             if (r.getId().equals(id)) {
                 return r;
             }
@@ -42,27 +48,26 @@ public class ReportService implements IEntityService<IssueReport> {
         return null;
     }
 
-    @Override
+    // Returns total number of reports
     public int getCount() {
         return reports.size();
     }
 
-    /**
-     * Count reports with a specific status.
-     */
-    public long countByStatus(ReportStatus status) {
-        return reports.stream()
-                .filter(r -> r.getStatus() == status)
-                .count();
+    // Counts how many reports have a specific status
+    public int countByStatus(ReportStatus status) {
+        int count = 0;
+        for (int i = 0; i < reports.size(); i++) {
+            if (reports.get(i).getStatus() == status) {
+                count++;
+            }
+        }
+        return count;
     }
 
-    /**
-     * Resolve the first pending report for a given equipment ID.
-     * Business logic is encapsulated here rather than in the UI layer.
-     * @return true if a report was found and resolved.
-     */
+    // Resolves the first pending report for a given equipment ID
     public boolean resolveByEquipmentId(String equipmentId) {
-        for (IssueReport r : reports) {
+        for (int i = 0; i < reports.size(); i++) {
+            IssueReport r = reports.get(i);
             if (r.getEquipmentId().equals(equipmentId) && r.getStatus() == ReportStatus.PENDING) {
                 r.setStatus(ReportStatus.RESOLVED);
                 return true;
@@ -71,12 +76,11 @@ public class ReportService implements IEntityService<IssueReport> {
         return false;
     }
 
-    /**
-     * Get all reports for a specific equipment.
-     */
+    // Gets all reports for a specific equipment
     public List<IssueReport> getReportsByEquipmentId(String equipmentId) {
         List<IssueReport> result = new ArrayList<>();
-        for (IssueReport r : reports) {
+        for (int i = 0; i < reports.size(); i++) {
+            IssueReport r = reports.get(i);
             if (r.getEquipmentId().equals(equipmentId)) {
                 result.add(r);
             }

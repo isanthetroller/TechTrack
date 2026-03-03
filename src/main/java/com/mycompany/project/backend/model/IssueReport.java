@@ -16,7 +16,7 @@ public class IssueReport extends Entity {
     private ReportStatus status;
 
     public IssueReport(String equipmentId, String reportedBy, String description) {
-        super("RPT-" + String.format("%03d", ++counter));
+        super("RPT-" + (++counter));
         setEquipmentId(equipmentId);
         setReportedBy(reportedBy);
         setDescription(description);
@@ -76,7 +76,6 @@ public class IssueReport extends Entity {
      */
     @Override
     public String getSummary() {
-        return String.format("Report %s: Equipment [%s] - %s (%s)",
-                getId(), equipmentId, description, status.getDisplayName());
+        return "Report " + getId() + ": Equipment [" + equipmentId + "] - " + description + " (" + status.getDisplayName() + ")";
     }
 }

@@ -14,8 +14,8 @@ import java.util.List;
 public class DataService {
     private static DataService instance;
 
-    private final EquipmentService equipmentService;
-    private final ReportService reportService;
+    private EquipmentService equipmentService;
+    private ReportService reportService;
 
     private DataService() {
         equipmentService = new EquipmentService();

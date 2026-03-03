@@ -7,34 +7,40 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Service handling all equipment-related business logic and data operations.
- * Demonstrates POLYMORPHISM (implements IEntityService&lt;Equipment&gt;)
- * and ENCAPSULATION (private list, controlled access).
+ * Service that manages all equipment data and business logic.
+ * Demonstrates ENCAPSULATION — the equipment list is private and
+ * can only be accessed or modified through controlled methods.
  */
-public class EquipmentService implements IEntityService<Equipment> {
-    private final List<Equipment> inventory = new ArrayList<>();
+public class EquipmentService {
+    private List<Equipment> inventory = new ArrayList<>();
 
-    @Override
+    // Returns the full list of equipment
     public List<Equipment> getAll() {
-        return new ArrayList<>(inventory); // Defensive copy — protects internal state
+        return inventory;
     }
 
-    @Override
+    // Adds a new equipment to the inventory
     public void add(Equipment equipment) {
-        if (equipment == null) {
-            throw new IllegalArgumentException("Equipment cannot be null.");
+        if (equipment != null) {
+            inventory.add(equipment);
         }
-        inventory.add(equipment);
     }
 
-    @Override
+    // Removes equipment by its ID
     public boolean removeById(String id) {
-        return inventory.removeIf(e -> e.getId().equals(id));
+        for (int i = 0; i < inventory.size(); i++) {
+            if (inventory.get(i).getId().equals(id)) {
+                inventory.remove(i);
+                return true;
+            }
+        }
+        return false;
     }
 
-    @Override
+    // Finds equipment by its ID
     public Equipment findById(String id) {
-        for (Equipment e : inventory) {
+        for (int i = 0; i < inventory.size(); i++) {
+            Equipment e = inventory.get(i);
             if (e.getId().equals(id)) {
                 return e;
             }
@@ -42,24 +48,23 @@ public class EquipmentService implements IEntityService<Equipment> {
         return null;
     }
 
-    @Override
+    // Returns total number of equipment
     public int getCount() {
         return inventory.size();
     }
 
-    /**
-     * Count equipment filtered by a specific status.
-     */
-    public long countByStatus(EquipmentStatus status) {
-        return inventory.stream()
-                .filter(e -> e.getStatus() == status)
-                .count();
+    // Counts how many equipment items have a specific status
+    public int countByStatus(EquipmentStatus status) {
+        int count = 0;
+        for (int i = 0; i < inventory.size(); i++) {
+            if (inventory.get(i).getStatus() == status) {
+                count++;
+            }
+        }
+        return count;
     }
 
-    /**
-     * Update the status of an equipment item by its ID.
-     * @return true if the equipment was found and updated.
-     */
+    // Updates the status of an equipment item by its ID
     public boolean updateStatus(String id, EquipmentStatus newStatus) {
         Equipment eq = findById(id);
         if (eq != null) {

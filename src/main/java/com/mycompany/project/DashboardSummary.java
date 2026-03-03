@@ -42,9 +42,9 @@ public class DashboardSummary extends javax.swing.JPanel {
     public void refreshStats() {
         DataService ds = DataService.getInstance();
         int total = ds.getEquipmentService().getCount();
-        long operational = ds.getEquipmentService().countByStatus(EquipmentStatus.OPERATIONAL);
-        long maintenance = ds.getEquipmentService().countByStatus(EquipmentStatus.UNDER_MAINTENANCE);
-        long reports = ds.getReportService().countByStatus(ReportStatus.PENDING);
+        int operational = ds.getEquipmentService().countByStatus(EquipmentStatus.OPERATIONAL);
+        int maintenance = ds.getEquipmentService().countByStatus(EquipmentStatus.UNDER_MAINTENANCE);
+        int reports = ds.getReportService().countByStatus(ReportStatus.PENDING);
 
         lblTotal.setText("Total Equipment: " + total);
         lblOperational.setText("Operational: " + operational);
