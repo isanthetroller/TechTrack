@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+  <Properties>
+    <Property name="defaultCloseOperation" type="int" value="3"/>
+  </Properties>
+  <AuxValues>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
+  </AuxValues>
+  <Layout class="java.awt.BorderLayout"/>
+  <SubComponents>
+    <Container class="javax.swing.JPanel" name="jPanel1">
+      <Layout class="java.awt.BorderLayout"/>
+      <SubComponents>
+        <Container class="javax.swing.JPanel" name="jPanel2">
+          <Properties>
+            <Property name="background" type="java.awt.Color">
+              <Color red="10" green="25" blue="60" type="rgb"/>
+            </Property>
+            <Property name="preferredSize" type="java.awt.Dimension">
+              <Dimension value="[260, 0]"/>
+            </Property>
+          </Properties>
+        </Container>
+        <Container class="javax.swing.JPanel" name="mainContent">
+          <Layout class="java.awt.CardLayout"/>
+        </Container>
+      </SubComponents>
+    </Container>
+  </SubComponents>
+</Form>

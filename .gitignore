@@ -1,18 +1,23 @@
 # Compiled class files
 target/
+*.class
 
 # IDE files
 .idea/
 *.iml
 .vscode/
-*.class
 nbproject/private/
-
-# OS files
-.DS_Store
-Thumbs.db
+nbactions.xml
+nb-configuration.xml
 
 # Maven
 *.jar
 *.war
 *.ear
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
