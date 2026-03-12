@@ -63,6 +63,12 @@ def _multiline(slide, l, t, w, h, lines, sz=14, color=BLACK, spacing=6, bold_fir
             p.font.bold = True
     return box
 
+def _line(slide, x1, y1, x2, y2, color_rgb=GRAY, width=Pt(2)):
+    connector = slide.shapes.add_connector(1, x1, y1, x2, y2)
+    ln = connector.line
+    ln.color.rgb = color_rgb
+    ln.width = width
+
 def _arrow(slide, x1, y1, x2, y2, color_rgb=GRAY, width=Pt(2)):
     connector = slide.shapes.add_connector(1, x1, y1, x2, y2)  # straight
     ln = connector.line
@@ -413,8 +419,8 @@ diamond(s6, cx - Inches(0.7), Inches(3.65), Inches(1.4), Inches(0.9), "Valid\nCr
 _text(s6, cx + Inches(0.75), Inches(3.85), Inches(0.5), Inches(0.3), "No", sz=9, bold=True, color=RED)
 _arrow(s6, cx + Inches(0.7), Inches(4.1), cx + Inches(1.5), Inches(4.1), RED)
 # Error box
-flow_box(s6, cx + Inches(1.5), Inches(3.85), Inches(1.6), Inches(0.45), "Show Error\nMessage", RED, WHITE)
-_arrow(s6, cx + Inches(2.3), Inches(3.85), cx + Inches(2.3), Inches(2.4), RED)
+flow_box(s6, cx + Inches(1.5), Inches(3.85), Inches(1.6), Inches(0.45), "Show Error", RED, WHITE)
+_line(s6, cx + Inches(2.3), Inches(3.85), cx + Inches(2.3), Inches(2.4), RED)
 _arrow(s6, cx + Inches(2.3), Inches(2.4), cx + bw/2, Inches(2.4), RED)
 
 # Yes — go to dashboard
@@ -450,8 +456,13 @@ for i, (mod_name, mod_color) in enumerate(modules):
     my = Inches(1.5) + i * Inches(0.58)
     flow_box(s6, dcx - module_bw/2, my, module_bw, module_bh, mod_name, mod_color, WHITE)
 
-# Arrows from navigation line to each module
+# Vertical distribution line from navigate endpoint up to module pages
 nav_x = Inches(6.9)
+first_mod_center = Inches(1.5) + module_bh / 2
+last_mod_center = Inches(1.5) + 4 * Inches(0.58) + module_bh / 2
+_line(s6, nav_x, first_mod_center, nav_x, Inches(5.87), GRAY, Pt(1.2))
+
+# Arrows from vertical line to each module
 for i in range(5):
     my = Inches(1.5) + i * Inches(0.58) + module_bh / 2
     _arrow(s6, nav_x, my, dcx - module_bw/2, my, GRAY, Pt(1.2))
@@ -475,8 +486,8 @@ _text(s6, Inches(9.7), Inches(2.4), Inches(1.2), Inches(0.3), "performs ▸", sz
 
 # Logout flow
 _text(s6, cx - Inches(2.2), Inches(5.65), Inches(1.0), Inches(0.4), "Logout", sz=10, bold=True, color=RED)
-_arrow(s6, cx - Inches(1.1), Inches(5.87), cx - Inches(1.6), Inches(5.87), RED)
-_arrow(s6, cx - Inches(1.6), Inches(5.87), cx - Inches(1.6), Inches(2.4), RED)
+_line(s6, cx - Inches(1.1), Inches(5.87), cx - Inches(1.6), Inches(5.87), RED)
+_line(s6, cx - Inches(1.6), Inches(5.87), cx - Inches(1.6), Inches(2.4), RED)
 _arrow(s6, cx - Inches(1.6), Inches(2.4), cx - bw/2, Inches(2.4), RED)
 
 # ════════════════════════════════════════════════════════════════════

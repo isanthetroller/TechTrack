@@ -507,6 +507,14 @@ for i, (mod_name, mod_color) in enumerate(modules):
     flow_box(c, rcx - mbw/2, my - mbh, mbw, mbh, mod_name, mod_color, white, 9)
     arrow_right(c, nav_end_x, my - mbh/2, rcx - mbw/2, GRAY, 1)
 
+# Vertical distribution line from navigate endpoint up to module pages
+first_mod_mid = PAGE_H - 1.7*inch - mbh/2
+last_mod_mid = PAGE_H - 1.7*inch - 4*0.55*inch - mbh/2
+c.saveState()
+c.setStrokeColor(GRAY); c.setLineWidth(1)
+c.line(nav_end_x, md_center_y, nav_end_x, first_mod_mid)
+c.restoreState()
+
 # CRUD box
 crud_x = 11.0*inch
 crud_y = PAGE_H - 1.5*inch
